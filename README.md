@@ -7,5 +7,5 @@
    git add .
    git commit -m "message"
 3. git pull - for taking changes from GITHUB to VSCode
-4. 
+4. Command to run shell script: bash file_name.sh
 '''
