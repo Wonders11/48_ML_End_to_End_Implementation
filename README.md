@@ -9,3 +9,9 @@
 3. git pull - for taking changes from GITHUB to VSCode
 4. Command to run shell script: bash file_name.sh
 '''
+
+'''
+python setup.py install
+'''
+
+# another way we can mention -e . in requirements.txt file and run
