@@ -45,7 +45,7 @@ class DataTransformation:
             num_pipeline = Pipeline(
                 steps=[
                     ('imputer',SimpleImputer(strategy='median')),
-                    ('scaler',StandardScaler)
+                    ('scaler',StandardScaler())
                 ]
             )
 
@@ -53,14 +53,14 @@ class DataTransformation:
             cat_pipeline = Pipeline(
                 steps=[
                     ('imputer',SimpleImputer(strategy='most_frequent')),
-                    ('ordinalencoder',OrdinalEncoder(categories=[cut_categories,color_categories,clarity_categories]))
-                    ('scaler',StandardScaler)
+                    ('ordinalencoder',OrdinalEncoder(categories=[cut_categories,color_categories,clarity_categories])),
+                    ('scaler',StandardScaler())
                 ]
             )
 
             # transformation object
             preprocessor = ColumnTransformer([
-                ('num_pipeline',num_pipeline,numerical_cols)
+                ('num_pipeline',num_pipeline,numerical_cols),
                 ('cat_pipeline',cat_pipeline,categorical_cols)
             ])
 
@@ -71,7 +71,7 @@ class DataTransformation:
             logging.info("Exception occured in the initiate_datatransformation")
             raise customexception(e,sys)
     
-
+    # this is called first
     def initialize_data_transformation(self,train_path,test_path):
 
         # refer model_training.ipynb for better understanding
@@ -97,22 +97,24 @@ class DataTransformation:
             target_feature_test_df=test_df[target_column_name]
 
             # transforming train data - fit transform is used for input data
-            input_feature_train_arr = preprocessing_obj.fit_transform(input_feature_test_df)
+            input_feature_train_arr = preprocessing_obj.fit_transform(input_feature_train_df)
 
-            input_feature_test_arr = preprocessing_obj.transform(target_feature_train_df) # input_feature_test_df
+            input_feature_test_arr = preprocessing_obj.transform(input_feature_test_df) # input_feature_test_df
 
             # logging info
             logging.info("Applying preprocessing object on training and test datasets.")
 
+            # we will get o/p in the form of numpy array
             train_arr = np.c_[input_feature_train_arr, np.array(target_feature_train_df)]
             test_arr = np.c_[input_feature_test_arr, np.array(target_feature_test_df)]
 
+            # saving pkl object - coded in utils/utils.py 
             save_object(
                 file_path = self.data_transformation_config.preprocessor_obj_file_path,
-                object = preprocessing_obj
+                obj = preprocessing_obj
             )
 
-            logging.info("preprocessing pickle file saved")
+            logging.info("Preprocessing pickle file saved")
             
             return (
                 train_arr,
