@@ -22,7 +22,7 @@ jobs:
         # Update the machine
         sudo apt-get update
         sudo apt-get install -y jq unzip
-    - name: COnfigure AWS credentials
+    - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         # configure access and secret key in order to make connection from github server to AWS server
