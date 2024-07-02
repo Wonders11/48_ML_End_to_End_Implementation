@@ -44,5 +44,5 @@ def predict_datapoint(): # code for prediction will be here
         return render_template("results.html",final_result=result)
 
 if __name__ ==  '__main__':
-    app.run() # without this we won't get the output
+    app.run(host="0.0.0.0",port=8080) # without this we won't get the output
 
