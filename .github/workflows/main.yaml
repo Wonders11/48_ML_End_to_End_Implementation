@@ -6,6 +6,7 @@ name: Build and push image to ECR
 on: 
   push:
     branches:
+      # make sure to update the main branch name - in my case the main branch name was master
       - master
      
 
