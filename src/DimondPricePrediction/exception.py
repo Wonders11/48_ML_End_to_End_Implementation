@@ -15,7 +15,7 @@ class customexception(Exception): # for fetching details like file name, line nu
             self.file_name,self.lineno,str(self.error_message)
         )
     
-
+# For checking whether this file is running properly or not this code block is added
 if __name__ == "__main__":
     try:
         a=1/0
